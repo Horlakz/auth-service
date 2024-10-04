@@ -28,7 +28,7 @@ public class DatabaseMigrationRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (!userService.findByUsername("admin").isPresent()) {
+        if (!userService.existsByUsername("admin")) {
             Set<Role> roles = new HashSet<>();
 
             roles.add(new Role(ERole.ADMIN));
