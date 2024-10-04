@@ -73,9 +73,14 @@ public class AuthService {
     }
 
     public String login(String email, String password) {
-
         User user = userService.findByEmail(email);
         String username = user.getUsername();
+
+        Boolean isPasswordMatch = encoder.matches(password, user.getPassword());
+
+        if (!isPasswordMatch) {
+            throw new RuntimeException("Invalid password!");
+        }
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username,
                 password);
